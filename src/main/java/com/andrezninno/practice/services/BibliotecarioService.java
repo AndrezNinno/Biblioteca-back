@@ -32,8 +32,8 @@ public class BibliotecarioService implements UserDetailsService{
 	public RegistroResponse agregarUsuario(BibliotecarioRequest nuevoBibliotecario) {
 		RegistroResponse response = new RegistroResponse();
 		
-		if(!bibliotecarioRepository.existBibliotecarioByTipoDocumentoAndDocumento(nuevoBibliotecario.getTipoDocumento(), nuevoBibliotecario.getDocumento())) {
-			if(!bibliotecarioRepository.existBibliotecarioByUsuario(nuevoBibliotecario.getUsuario())) {
+		if(!bibliotecarioRepository.existsBibliotecarioByTipoDocumentoAndDocumento(nuevoBibliotecario.getTipoDocumento(), nuevoBibliotecario.getDocumento())) {
+			if(!bibliotecarioRepository.existsBibliotecarioByUsuario(nuevoBibliotecario.getUsuario())) {
 				Bibliotecario b = new Bibliotecario(nuevoBibliotecario);
 				if(bibliotecarioRepository.save(b) != null) {
 					response.setRespuesta("Se registró exitosamente su usuario");

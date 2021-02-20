@@ -8,9 +8,9 @@ import com.andrezninno.practice.domain.Bibliotecario;
 
 public interface BibliotecarioRepository extends JpaRepository<Bibliotecario, Long>{
 
-	boolean existBibliotecarioByTipoDocumentoAndDocumento(String tipoDocumento, String documento);
+	boolean existsBibliotecarioByTipoDocumentoAndDocumento(String tipoDocumento, String documento);
 
 	Optional<Bibliotecario> findBibliotecarioByUsuario(String usuario);
 	
-	boolean existBibliotecarioByUsuario(String usuario);
+	boolean existsBibliotecarioByUsuario(String usuario);
 }
