@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.andrezninno.practice.domain.Bibliotecario;
 import com.andrezninno.practice.domain.BibliotecarioDetails;
 import com.andrezninno.practice.repositories.BibliotecarioRepository;
+import com.andrezninno.practice.requests.BibliotecarioRequest;
 import com.andrezninno.practice.responses.RegistroResponse;
 
 @Service
@@ -28,11 +29,12 @@ public class BibliotecarioService implements UserDetailsService{
 		return bibliotecario.map(BibliotecarioDetails::new).get();
 	}
 	
-	public RegistroResponse agregarUsuario(Bibliotecario b) {
+	public RegistroResponse agregarUsuario(BibliotecarioRequest nuevoBibliotecario) {
 		RegistroResponse response = new RegistroResponse();
 		
-		if(!bibliotecarioRepository.existBibliotecarioByTipoDocumentoAndDocumento(b.getTipoDocumento(), b.getDocumento())) {
-			if(!bibliotecarioRepository.existBibliotecarioByUsuario(b.getUsuario())) {
+		if(!bibliotecarioRepository.existBibliotecarioByTipoDocumentoAndDocumento(nuevoBibliotecario.getTipoDocumento(), nuevoBibliotecario.getDocumento())) {
+			if(!bibliotecarioRepository.existBibliotecarioByUsuario(nuevoBibliotecario.getUsuario())) {
+				Bibliotecario b = new Bibliotecario(nuevoBibliotecario);
 				if(bibliotecarioRepository.save(b) != null) {
 					response.setRespuesta("Se registró exitosamente su usuario");
 					response.setExito(true);
@@ -41,7 +43,7 @@ public class BibliotecarioService implements UserDetailsService{
 					response.setExito(false);
 				}
 			} else {
-				response.setError("El usuario " + b.getUsuario() + " ya se encuentra en uso");
+				response.setError("El usuario " + nuevoBibliotecario.getUsuario() + " ya se encuentra en uso");
 				response.setExito(false);
 			}
 		} else {

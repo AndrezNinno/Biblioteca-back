@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.andrezninno.practice.requests.BibliotecarioRequest;
+
 @Entity
 @Table(name = "bibliotecarios")
 public class Bibliotecario {
@@ -33,6 +35,14 @@ public class Bibliotecario {
 
 	public Bibliotecario() {
 		super();
+	}
+
+	public Bibliotecario(BibliotecarioRequest nuevoBibliotecario) {
+		this.usuario = nuevoBibliotecario.getUsuario();
+		this.contrasenia = nuevoBibliotecario.getContrasenia();
+		this.nombre = nuevoBibliotecario.getNombre();
+		this.tipoDocumento = nuevoBibliotecario.getTipoDocumento();
+		this.documento = nuevoBibliotecario.getDocumento();
 	}
 
 	public Long getIdBibliotecario() {
