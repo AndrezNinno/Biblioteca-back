@@ -18,6 +18,7 @@ public class Bibliotecario {
 	private String nombre;
 	private String tipoDocumento;
 	private String documento;
+	private String roles;
 	
 	public Bibliotecario(Long idBibliotecario, String usuario, String contrasenia, String nombre, String tipoDocumento,
 			String documento) {
@@ -82,4 +83,13 @@ public class Bibliotecario {
 		this.documento = documento;
 	}
 
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
+
+	
 }
