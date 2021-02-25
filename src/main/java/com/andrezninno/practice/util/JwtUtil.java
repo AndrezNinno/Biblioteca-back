@@ -1,5 +1,6 @@
 package com.andrezninno.practice.util;
 
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Service
 public class JwtUtil {
 
-	private static final String SECRET_KEY = "0^uj4m5SJY0fVX%YqdFlb7Zo";
+	private static final String SECRET_KEY = new String(Base64.getEncoder().encode("0^uj4m5SJY0fVX%YqdFlb7Zo2*sQe5Sgcq1EafE4".getBytes()));
 
 	public String generateToken(UserDetails userDetails) {
 		Map<String, Object> claims = new HashMap<>();

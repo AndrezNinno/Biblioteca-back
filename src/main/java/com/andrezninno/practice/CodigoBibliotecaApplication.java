@@ -8,10 +8,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 public class CodigoBibliotecaApplication {
 
 	public static void main(String[] args) {
-		//SpringApplication.run(CodigoBibliotecaApplication.class, args);
-		new SpringApplicationBuilder(CodigoBibliotecaApplication.class)
-		.registerShutdownHook(true)
-		.run(args);
+		SpringApplication.run(CodigoBibliotecaApplication.class, args);
 	}
 
 }

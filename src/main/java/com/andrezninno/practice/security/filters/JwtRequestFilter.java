@@ -20,39 +20,39 @@ import com.andrezninno.practice.services.BibliotecarioService;
 import com.andrezninno.practice.util.JwtUtil;
 
 @Component
-public class JwtRequestFilter extends OncePerRequestFilter{
-	
+public class JwtRequestFilter extends OncePerRequestFilter {
+
 	@Autowired
 	private JwtUtil jwtUtil;
-	
+
 	@Autowired
 	private BibliotecarioService bibliotecarioService;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		
+
 		final String authorizationHeader = request.getHeader("Authorization");
-		
+
 		String username = null;
 		String jwt = null;
-		
-		if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+
+		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
 			jwt = authorizationHeader.substring(7);
 			username = jwtUtil.extractUsername(jwt);
 		}
-		
-		if(username != null && SecurityContextHolder.getContext().getAuthentication() == null ) {
+
+		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			UserDetails bibliotecario = this.bibliotecarioService.loadUserByUsername(username);
-			if(jwtUtil.validateToken(jwt, bibliotecario)) {
-				UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(bibliotecario, null, bibliotecario.getAuthorities());
+			if (jwtUtil.validateToken(jwt, bibliotecario)) {
+				UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(bibliotecario, null,
+						bibliotecario.getAuthorities());
 				token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext().setAuthentication(token);
 			}
 		}
-		
+
 		filterChain.doFilter(request, response);
 	}
-	
-	
+
 }

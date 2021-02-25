@@ -2,6 +2,7 @@ package com.andrezninno.practice.domain;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,15 +34,16 @@ public class BibliotecarioDetails implements UserDetails{
 		this.nombre = b.getNombre();
 		this.tipoDocumento = b.getTipoDocumento();
 		this.documento = b.getDocumento();
-		this.authorities = Arrays.stream(b.getRoles().split(","))
+		/*this.authorities = Arrays.stream(b.getRoles().split(","))
 				.map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toList());
+				*/
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return authorities;
+		return Collections.emptyList();
 	}
 
 	@Override

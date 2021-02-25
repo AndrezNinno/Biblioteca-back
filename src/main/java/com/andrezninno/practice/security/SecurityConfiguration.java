@@ -16,11 +16,11 @@ import com.andrezninno.practice.security.filters.JwtRequestFilter;
 import com.andrezninno.practice.services.BibliotecarioService;
 
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	BibliotecarioService bibliotecarioService;
-	
+	private BibliotecarioService bibliotecarioService;
+
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
 
@@ -31,10 +31,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable()
-			.authorizeRequests().antMatchers("/bibliotecario/autenticar", "/bibliotecario/nuevo").permitAll()
-			.anyRequest().authenticated()
-			.and().sessionManagement()
+		http.csrf()
+			.disable()
+			.authorizeRequests()
+			.antMatchers("/bibliotecario/nuevo", "/autenticar")
+			.permitAll()
+			.anyRequest().authenticated().and().sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
@@ -44,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
-	
+
 	@Bean
 	public PasswordEncoder getPasswordEncoder() {
 		return NoOpPasswordEncoder.getInstance();
